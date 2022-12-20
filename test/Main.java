@@ -1,26 +1,30 @@
-///*
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
-// */
-//package test;
-//
-//import java.util.HashMap;
-//import java.util.Iterator;
-//import java.util.Map;
-//
-///**
-// *
-// * @author trinh
-// */
-//public class Main {
-//    public static void main(String[] args) {
-//        Pair<String,Integer>s=new Pair<>();
-//        s.put("a",10);
-//        s.put("a",12);
-//        for (Map.Entry<String, Integer> entry : s.entrySet()) {
-//            Object key = entry.getKey();
-//            Object val = entry.getValue();
-//            System.out.println(key+" "+val);
-//        }
-//    }
-//}
+
+package test;
+
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.TreeMap;
+public class Main {
+    public static void main(String[] args) throws Exception {
+        ObjectInputStream ois=new ObjectInputStream(new FileInputStream("DATA.in"));
+        List<Pair>p=(ArrayList<Pair>)ois.readObject();
+        TreeMap<String,Integer>map=new TreeMap<>();
+        List<Pair>res=new ArrayList<>();
+        for (Pair pair : p) {
+            int x=pair.getFirst();
+            int y=pair.getSecond();
+            String so=""+x+y;
+            if(x<y&&!map.containsKey(so)){
+                map.put(so, 1);
+                res.add(pair);
+            }
+        }
+        Collections.sort(res);
+        for (Pair re : res) {
+            System.out.println(re);
+        }
+   }
+}
